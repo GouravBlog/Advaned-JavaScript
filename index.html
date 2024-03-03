@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced JavaScript</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script type="module" src="./main.js"></script> -->
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <script>
+      // 1. Difference Between var,let,const
+      //  var name = "rahul";
+      //  name = "Gourav";
+      //  var name = "Shyam"
+      //  console.log(name);
+
+      //  let name = "Gourav";
+      //  name = "Rahul";
+      //  let name = "Shyam";
+      //  console.log(name);
+
+      //  const name = "Ram";
+      //  name = "Gourav";
+      // const name = "Shyam";
+      //  console.log(name);
+
+      // if(true){
+      //   const a = "Rahul"
+      // }
+      // ---------------------------------------
+
+      // 2. Template String
+
+      // const fname = "Gourav";
+      // const lname = "Wasale";
+      // const age = 24;
+
+      // function fullName(){
+      //   console.log("My First Name Is " + fname + " And My Last Name Is " + lname + " And My Age Is Year " + age);
+      //   console.log(`My First Name Is ${fname} And My Last Name Is ${lname} And My Age Is ${age}`);
+      // }
+
+      // fullName(fname,lname);
+
+      // ---------------------------------------------------
+
+      // 3. Array Destructring
+
+      // let arr1 = ["Gourav",24,true,["graps","banana"]];
+      //   let [name,age,graduate,[fr1,fr2]] = arr1;
+
+      //   console.log(name);
+      //   console.log(age);
+      //   console.log(graduate);
+      //   console.log(fr1);
+      //   console.log(fr2);
+
+      // ----------------------------------------------------
+
+      // 4. Object Destructring
+
+      // const obj1 = {
+      //   name : "Gourav",
+      //   age : 24
+      // }
+      // const {name,age} = obj1
+      // console.log(age);
+
+      // -----------------------------------------------------
+
+      // 5 . Object Literals
+
+      // let n = "name";
+
+      // const obj1 = {
+      //   [ "student" + n] : "Gourav",
+      //   show (){
+      //     console.log(this.studentname);
+      //   }
+      // }
+      // console.log(obj1.show())
+
+      // -----------------------------------------
+
+      // 6. Arrow Function
+
+      // function name(n,a){
+      //   console.log(`My Name Is ${n} And My Age Is ${a}`);
+      // }
+      // function name(n){
+      //   console.log(`My Name Is ${n} `);
+      // }
+
+      // const name = n=>console.log(`My Name Is ${n} `);
+
+      // name("Gourav");
+
+      // -----------------------------------------------------
+
+      // 7. Rest Operator
+
+      // var sum = 0;
+      // function add (name ,...args){
+      //   console.log(name)
+      //   for (let i of args){
+      //     sum += i;
+      //   }
+      //   console.log(sum);
+      // }
+
+      // add(name,5,5,5)
+
+      // ---------------------------------------------------------------
+
+      // 8. Spread Operator
+
+      // var sum = 0;
+      //   function add (name ,...args){
+      //     console.log(name)
+      //     for (let i of args){
+      //       sum += i;
+      //     }
+      //     console.log(sum);
+      //   }
+
+      //   const arr = [5,5,5]
+      //   add(name,...arr)
+
+      // let arr1 = ["one","two"];
+      // let arr2 = ["three","four"];
+
+      // let arr3 =[ ...arr1 , [...arr2]];
+      // let arr3 = arr1.concat(arr2);
+
+      // console.log(arr3);
+
+      // --------------------------------------------------------------
+
+      // 9. Promise In Advanced Javascript
+
+      // function prom(condition) {
+      //   return new Promise(function (resolve, reject) {
+      //     if (condition) {
+      //       console.log("please Wait....");
+      //       setTimeout(() => {
+      //         $.get(
+      //           "https://jsonplaceholder.typicode.com/todos/",
+      //           function (data) {
+      //             resolve(data);
+      //           }
+      //         ).fail(() => {
+      //           reject("Data Is Not Loaded");
+      //         });
+      //       }, 2000);
+      //     } else {
+      //       reject("Promise Is Reject");
+      //     }
+      //   })
+      //     .then((result) => {
+      //       console.log(result);
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //     });
+      // }
+      // prom(true);
+      // ---------------------------------------------------------
+
+      // 10. XMLHttpRequest
+      //   function loadData(){
+      //   const xhttp = new XMLHttpRequest();
+      //   xhttp.onreadystatechange = function(){
+      //     console.log("Load Data...")
+      //     if(this.readyState===4 && this.status===200){
+      //       console.log(this.responseText);
+      //     }
+      //   }
+      //   xhttp.open("Get","https://jsonplaceholder.typicode.com/todos/",true);
+      //   xhttp.send();
+      // }
+
+      // --------------------------------------------------------
+
+      // 11. Fetch API
+
+      async function loadData() {
+        try {
+          let result = await fetch("https://fakestoreapi.com/products");
+        result = await result.json();
+        // console.log(result);
+        document.getElementById("card-container").innerHTML = result.map((item) => {
+          return `
+          <div   style="
+          flex-basis: 30%;
+          padding: 2%;
+          text-align:center;
+          box-sizing:border-box;
+          box-shadow : 0px 0px 10px 0px rgba(0,266,0,0.5);
+          border-radius:10px;
+          margin-bottom:1%;
+          color:rgba(0,255,0,0.7);
+        ">
+          <p>${item.id}</p>
+          <img src=${item.image} alt="demo" style="width:100%; height:50vh;">
+          <p>${item.price}</p>
+          <p>${item.title}</p>
+          <p>${item.description.slice(0,59)}</p>
+          <button style="width:90%; padding:12px 35px; margin:20px 0px; color:#fff; font-weight:bold; background-color:rgba(0,266,0,0.5);border:none; outline:none; border-radius:5px; cursor:pointer;">View More</button>
+          </div>
+          `;
+        });
+        } catch (error) {
+          console.log("Error",error.message);
+          document.write("Something Went Wrong");
+        }
+       
+      }
+
+      // ------------------------------------------
+      // 12. use strict mode
+
+      // 'use strict';
+      //  y = "rahul";
+      // console.log(y);
+      // x = "abhay";
+      // console.log(x);
+
+      // -------------------------------------------------
+
+      // 13. Error Handling In Js
+      
+      // Error Handling In Advanced Javascript
+      // try {
+      //     blabla;
+      // } catch(error) {
+      //     console.log(error);
+      // }
+
+        // ----------------------------------------------------
+        
+        // 14. OOPS In JS
+
+      // classes and objects
+      //    class employ{
+      //     constructor(salary){
+      //         this.name = name;
+      //         this.age = age;
+      //         this.salary = salary;
+      //         console.log(`constructor : Employee Class`)
+      //     }
+      //     info(salary){
+      //         console.log(`My Name is ${this.name} And My Age Is ${this.age} `)
+      //         document.write(`Class : Employee <br>
+      //                Salary : ${salary} `)
+      //         console.log("employ Class Info function");
+      //     }
+      //     static staticMethod(){
+      //         console.log("This Is Static Method");
+      //     }
+      //    }
+      //    class Manager extends employ{
+      //         constructor(){
+      //             super()
+      //             console.log(`Constructor : Manager Class`)
+      //         }
+      //         info(salary){
+      //             let extraa = 5000;
+      //             document.write(`<br> Class : Manager <br>
+      //                Salary : ${salary + extraa} `)
+      //         console.log("manager Class Info function");
+
+      //         }
+
+      //    }
+      //    class test extends Manager{
+      //         constructor(){
+      //             super();
+      //             console.log("Constructor : Test Class")
+      //         }
+      //    }
+      //    let a = new Manager();
+      //    let b = new employ()
+      //    console.log(b.info(12000))
+      //    console.log(a.info(12000))
+
+      //    console.log(b.info())
+
+      //    console.log(Manager.staticMethod())
+      // let c = new test();
+
+      // ---------------------------------------------------------
+
+
+      // function merged() {
+      //   let mergedArray = [...new Set(c) ];
+      //   return mergedArray;
+      // }
+      // console.log(merged());
+      // let str = "hello";
+      // let Str2;
+      // let arr = str.split(" ");
+      // function reverse1(){
+      //   return Str2= str.split("").reverse().join("")
+      // }
+      // console.log(reverse1())
+    </script>
+  </head>
+  <body onload="loadData()">
+    <!-- <h1>Advanced JavaScript</h1>
+    <button onclick="loadData()">Load Data</button> <br /><br />
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="userdata"></tbody>
+    </table> -->
+    <!-- <table border="1" style="width: 100%; height: auto; table-layout: auto;",>
+      <thead >
+        <tr>
+          <th>id</th>
+          <th>title</th>
+          <th>price</th>
+        </tr>
+      </thead>
+      <tbody id="tableData"></tbody>
+    </table> -->
+    <header style="position: sticky; top: 0;">
+      <nav style="width: 100%; height: 2%; background-color: rgba(0,266,0,0.5); font-size: 20px; ">
+        <ul style="display: flex; justify-content: space-evenly; padding: 10px; list-style: none; color: #fff; font-weight: bold; cursor: pointer;">
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Services</li>
+          <li>Client</li>
+        </ul>
+      </nav>
+    </header>
+    <div id="card-container"
+      style="
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: baseline;
+        margin: 50px auto 50px;
+        flex-wrap: wrap;
+      "
+    >
+    </div>
+    <footer style="text-align: center; background-color: rgba(0,266,0,0.5); color: #fff; padding: 1%; width: 100%; height: 2%; ">
+      <p>Copyright &copy; All Right Reserved</p>
+    </footer>
+    <!-- <script type="module" src="./main.js"></script> -->
+  </body>
+</html>
